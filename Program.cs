@@ -19,8 +19,7 @@ namespace Snake {
                 SetFood();
                 SetTraps();
                 SetExit();
-            }
-            else {
+            } else {
                 Console.WriteLine("Field will be too small");
             }
         }
