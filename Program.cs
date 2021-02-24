@@ -11,6 +11,7 @@ namespace Snake {
         int foodAmount;
         char symb = 'O';
         Random rand = new Random();
+        
         public Snake(int sizeX, int sizeY) {
             if (sizeX > 0 && sizeY > 0) {
                 this.sizeX = sizeX;
@@ -24,6 +25,7 @@ namespace Snake {
                 Console.WriteLine("Field will be too small");
             }
         }
+        
         public void GenField(int sizeX, int sizeY) {
             field = new char[sizeY][];
             for (int i = 0; i < sizeY; i++) {
@@ -34,6 +36,7 @@ namespace Snake {
             }
             return;
         }
+        
         public void SetSnake() {
             int posX, posY;
             snakeCoordinates = new List<int>(foodAmount * 2 + 2);
@@ -44,6 +47,7 @@ namespace Snake {
             field[posY][posX] = symb;
             return;
         }
+        
         public void SetFood() {
             int posX, posY, foodAmountCopy;
             foodAmount = rand.Next(Math.Min(sizeX, sizeY), Math.Max(sizeX, sizeY) + 1);
@@ -58,9 +62,11 @@ namespace Snake {
             }
             return;
         }
+        
         public void SetTraps() {
             int posX, posY, trapsNum;
             trapsNum = rand.Next(Math.Min(sizeX, sizeY), Math.Max(sizeX, sizeY) + 1);
+            
             while (trapsNum >= 0) {
                 posX = rand.Next(sizeX);
                 posY = rand.Next(sizeY);
@@ -76,6 +82,7 @@ namespace Snake {
             }
             return;
         }
+        
         public void SetExit() {
             int posX, posY;
             while (true) {
@@ -88,6 +95,7 @@ namespace Snake {
             }
             return;
         }
+        
         public void ShowField() {
             foreach (char[] str in field) {
                 foreach (char symb in str) {
@@ -111,6 +119,7 @@ namespace Snake {
             }
             return;
         }
+        
         public bool MoveSnake() {
             bool ex = true, win = false;
             Console.ForegroundColor = ConsoleColor.White;
@@ -200,6 +209,7 @@ namespace Snake {
             }
             return ex;
         }
+        
         public void DeleteSnakeSegments(int newPosY, int newPosX) {
             for (int i = 2; i < snakeCoordinates.Count; i += 2) {
                 if (snakeCoordinates[i] == newPosY && snakeCoordinates[i + 1] == newPosX) {
@@ -211,6 +221,7 @@ namespace Snake {
             }
             return;
         }
+        
         public void AddSegment(int posY, int posX) {
             snakeCoordinates.Add(0);
             snakeCoordinates.Add(0);
@@ -226,6 +237,7 @@ namespace Snake {
             foodAmount--;
             return;
         }
+        
         public void MoveAllSegments(int newPosY, int newPosX) {
             field[snakeCoordinates[snakeCoordinates.Count - 2]][snakeCoordinates[snakeCoordinates.Count - 1]] = '*';
 
