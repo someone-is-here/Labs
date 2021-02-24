@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Snake {
     class Snake {
@@ -64,8 +65,13 @@ namespace Snake {
                 posX = rand.Next(sizeX);
                 posY = rand.Next(sizeY);
                 if (field[posY][posX] != symb && field[posY][posX] != '@' && field[posY][posX] != ' ') {
-                    field[posY][posX] = ' ';
-                    trapsNum--;
+                    if (posX > 0 &&  posY < sizeY - 1 && posY > 0 && posX < sizeX - 1) { 
+                        if (field[posY][posX - 1] != ' ' && field[posY + 1][posX - 1] != ' ' && field[posY + 1][posX] != ' ' && field[posY - 1][posX + 1] != ' ' && field[posY - 1][posX] != ' ' && field[posY][posX + 1] != ' ') {
+                            field[posY][posX] = ' ';
+                            trapsNum--;
+                        }
+                    }
+  
                 }
             }
             return;
@@ -107,6 +113,7 @@ namespace Snake {
         }
         public bool MoveSnake() {
             bool ex = true, win = false;
+            Console.ForegroundColor = ConsoleColor.White;
             switch (Console.ReadKey().KeyChar) {
                 case 'w':
                 case 'W':
@@ -115,11 +122,6 @@ namespace Snake {
                             ex = false;
                         } else if (field[snakeCoordinates[0] - 1][snakeCoordinates[1]] == 'E') {
                             win = true;
-
-                            if (foodAmount != 0) {
-                                Console.WriteLine("You fail!!!");
-                                Console.WriteLine($"Found {snakeCoordinates.Count / 2} of {snakeCoordinates.Count / 2 + foodAmount} ");
-                            }
                         } else if (field[snakeCoordinates[0] - 1][snakeCoordinates[1]] == symb) {
                             DeleteSnakeSegments(snakeCoordinates[0] - 1, snakeCoordinates[1]);
                             MoveAllSegments(snakeCoordinates[0] - 1, snakeCoordinates[1]);
@@ -135,13 +137,8 @@ namespace Snake {
                     if (snakeCoordinates[1] - 1 >= 0) {
                         if (field[snakeCoordinates[0]][snakeCoordinates[1] - 1] == ' ') {
                             ex = false;
-                        } else if (field[snakeCoordinates[0]][snakeCoordinates[1] - 1] == 'E') {
+                        } else if (field[snakeCoordinates[0]][snakeCoordinates[1] - 1] == 'E') { 
                             win = true;
-
-                            if (foodAmount != 0) {
-                                Console.WriteLine("You fail!!!");
-                                Console.WriteLine($"Found {snakeCoordinates.Count / 2} of {snakeCoordinates.Count / 2 + foodAmount} ");
-                            }
                         } else if (field[snakeCoordinates[0]][snakeCoordinates[1] - 1] == symb) {
                             DeleteSnakeSegments(snakeCoordinates[0], snakeCoordinates[1] - 1);
                             MoveAllSegments(snakeCoordinates[0], snakeCoordinates[1] - 1);
@@ -159,11 +156,6 @@ namespace Snake {
                             ex = false;
                         } else if (field[snakeCoordinates[0] + 1][snakeCoordinates[1]] == 'E' ) {
                             win = true;
-
-                            if (foodAmount != 0) {
-                                Console.WriteLine("You fail!!!");
-                                Console.WriteLine($"Found {snakeCoordinates.Count / 2} of {snakeCoordinates.Count / 2 + foodAmount} ");
-                            }
                         } else if (field[snakeCoordinates[0] + 1][snakeCoordinates[1]] == symb) {
                             DeleteSnakeSegments(snakeCoordinates[0] + 1, snakeCoordinates[1]);
                             MoveAllSegments(snakeCoordinates[0] + 1, snakeCoordinates[1]);
@@ -181,11 +173,6 @@ namespace Snake {
                             ex = false;
                         } else if (field[snakeCoordinates[0]][snakeCoordinates[1] + 1] == 'E') {
                             win = true;
-
-                            if (foodAmount != 0) {
-                                Console.WriteLine("You fail!!!");
-                                Console.WriteLine($"Found {snakeCoordinates.Count / 2} of {snakeCoordinates.Count / 2 + foodAmount} ");
-                            }
                         } else if (field[snakeCoordinates[0]][snakeCoordinates[1] + 1] == symb) {
                             DeleteSnakeSegments(snakeCoordinates[0], snakeCoordinates[1] + 1);
                             MoveAllSegments(snakeCoordinates[0], snakeCoordinates[1] + 1);
@@ -198,8 +185,9 @@ namespace Snake {
                     }
                     break;
                 default:
-                    Console.WriteLine("Wrong symbol");
+                    Console.WriteLine("\nWrong symbol");
                     Console.Beep();
+                    Thread.Sleep(1000);
                     break;
             }
             if (!ex) {
@@ -208,7 +196,7 @@ namespace Snake {
             } else if (win && foodAmount == 0) {
                 ex = false;
                 Console.WriteLine("\nYou are the winner!!!");
-                Console.WriteLine($"Your score is {snakeCoordinates.Count/2}");
+                Console.WriteLine($"Your score is {snakeCoordinates.Count / 2}");
             }
             return ex;
         }
@@ -257,14 +245,19 @@ namespace Snake {
         static void Main() {
             Console.WriteLine("Use the WASD keys to move your snake.");
             Console.WriteLine("Find all @ and don't fall into traps ' '");
-            Console.WriteLine("Than use E to leave the game!!!");
+            Console.WriteLine("Than use E to leave the game (you can leave only when you will find all @)!!!");
+            Console.WriteLine("Press enter to start...");
+            Thread.Sleep(1000);
 
-            Snake sn = new Snake(10,10);
-            sn.ShowField();
-
-            while (sn.MoveSnake()) {
+            if (Console.ReadKey().KeyChar == 13) {
+                Snake sn = new Snake(10, 10);
                 Console.Clear();
                 sn.ShowField();
+
+                while (sn.MoveSnake()) {
+                    Console.Clear();
+                    sn.ShowField();
+                }
             }
         }
     }
