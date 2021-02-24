@@ -66,7 +66,6 @@ namespace Snake {
         public void SetTraps() {
             int posX, posY, trapsNum;
             trapsNum = rand.Next(Math.Min(sizeX, sizeY), Math.Max(sizeX, sizeY) + 1);
-            
             while (trapsNum >= 0) {
                 posX = rand.Next(sizeX);
                 posY = rand.Next(sizeY);
@@ -123,6 +122,7 @@ namespace Snake {
         public bool MoveSnake() {
             bool ex = true, win = false;
             Console.ForegroundColor = ConsoleColor.White;
+            
             switch (Console.ReadKey().KeyChar) {
                 case 'w':
                 case 'W':
@@ -199,6 +199,7 @@ namespace Snake {
                     Thread.Sleep(1000);
                     break;
             }
+            
             if (!ex) {
                 Console.WriteLine("\nGAME OVER!!!");
                 Console.WriteLine("You fall into a trap!!!");
