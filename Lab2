@@ -38,12 +38,9 @@ namespace Lab2 {
                     str = str[(str.IndexOf(' ') + 1)..];
                     i++;
                 }
-
                 strArr[i] = str;
-
                 for (int j = strArr.Length - 1; j >= 0; j--) {
                     strB.Append(strArr[j] + ' ');
-
                 }
             } catch {
                 Console.WriteLine("Wrong input!!!");
