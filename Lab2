@@ -90,8 +90,8 @@ namespace Lab2 {
             string symbForSearching = "eyuioa";
             StringBuilder strB = new StringBuilder(str.Length);
             int temp;
-            strB.Append(str[0]);
             try {
+                strB.Append(str[0]);
                 for (int i = 1; i < str.Length; i++) {
                     if (symbForSearching.Contains(str[i - 1])) {
                         if (str[i] != 'z') {
@@ -125,12 +125,17 @@ namespace Lab2 {
             Console.WriteLine($"String: {strForReverseWords}");
             Console.WriteLine($"NewString: {ReverseString(strForReverseWords)}");
 
-            int triangleA = Convert.ToInt32(Console.ReadLine());
-            int triangleB = Convert.ToInt32(Console.ReadLine());
-            int triangleC = Convert.ToInt32(Console.ReadLine());
+            try {
+                int triangleA = Convert.ToInt32(Console.ReadLine());
+                int triangleB = Convert.ToInt32(Console.ReadLine());
+                int triangleC = Convert.ToInt32(Console.ReadLine());
+                TriangleInfo(triangleA, triangleB, triangleC);
+
+            } catch {
+                Console.WriteLine("wrong input!!!");               
+            }
 
             TriangleInfo();
-            TriangleInfo(triangleA, triangleB, triangleC);
 
             string strChangeSymbols = Console.ReadLine();
 
