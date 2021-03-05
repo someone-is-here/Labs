@@ -4,11 +4,11 @@ using System.Globalization;
 
 namespace Lab2 {
     class Program {
-        static string ChangeSymbols(string str) {
+        static string ShakeSymbols(string str) {
             Random rand = new Random();
             StringBuilder strB = new StringBuilder(str.Length);
             int index = 0;
-            try { 
+            try {
                 for (int i = 0; i < strB.Capacity; i++) {
                     index = rand.Next(str.Length);
                     strB.Append(str[index]);
@@ -45,19 +45,25 @@ namespace Lab2 {
             } catch {
                 Console.WriteLine("Wrong input!!!");
             }
-            
+
 
             return strB.ToString();
         }
-        static string ShowMonth(string language = "en") {
-            string mymonth = "";
+        static void ShowMonth(string language = "en") {
+            string myMonth = "";
+            DateTime dateTime = new DateTime();
+            int monthNum = 12;
             try {
-                mymonth = DateTime.Now.ToString("MMM", CultureInfo.GetCultureInfo(language));
+                while (monthNum > 0) {
+                    myMonth = dateTime.ToString("MMMM", CultureInfo.GetCultureInfo(language));
+                    Console.WriteLine(myMonth);
+                    dateTime = dateTime.AddMonths(1);
+                    monthNum--;
+                }
+                
             } catch {
                 Console.WriteLine("Wrong input!!!");
             }
-            
-            return mymonth;
         }
         static void TriangleInfo(int a = 3, int b = 4, int c = 5) {
             if ((a < b + c) && (b < a + c) && (c < a + b)) {
@@ -70,9 +76,9 @@ namespace Lab2 {
                 Console.WriteLine($"Cos(a): {(Math.Pow(a, 2) + Math.Pow(c, 2) - Math.Pow(b, 2)) / (2 * a * c)}");
                 Console.WriteLine($"Cos(b): {(Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b)}");
                 Console.WriteLine($"Cos(c): {(Math.Pow(b, 2) + Math.Pow(c, 2) - Math.Pow(a, 2)) / (2 * c * b)}");
-                Console.WriteLine($"Sin(a): {Math.Round(Math.Sqrt(1 - Math.Pow(((Math.Pow(a, 2) + Math.Pow(c, 2) - Math.Pow(b, 2)) / (2 * a * c)), 2)),3)}");
-                Console.WriteLine($"Sin(b): {Math.Round(Math.Sqrt(1 - Math.Pow(((Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b)), 2)),3)}");
-                Console.WriteLine($"Sin(c): {Math.Round(Math.Sqrt(1 - Math.Pow(((Math.Pow(b, 2) + Math.Pow(c, 2) - Math.Pow(a, 2)) / (2 * c * b)),2)),3)}");
+                Console.WriteLine($"Sin(a): {Math.Round(Math.Sqrt(1 - Math.Pow(((Math.Pow(a, 2) + Math.Pow(c, 2) - Math.Pow(b, 2)) / (2 * a * c)), 2)), 3)}");
+                Console.WriteLine($"Sin(b): {Math.Round(Math.Sqrt(1 - Math.Pow(((Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b)), 2)), 3)}");
+                Console.WriteLine($"Sin(c): {Math.Round(Math.Sqrt(1 - Math.Pow(((Math.Pow(b, 2) + Math.Pow(c, 2) - Math.Pow(a, 2)) / (2 * c * b)), 2)), 3)}");
                 Console.WriteLine($"Angle a: {Math.Acos((Math.Pow(a, 2) + Math.Pow(c, 2) - Math.Pow(b, 2)) / (2 * a * c))}");
                 Console.WriteLine($"Angle b: {Math.Acos((Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b))}");
                 Console.WriteLine($"Angle c: {Math.Acos((Math.Pow(b, 2) + Math.Pow(c, 2) - Math.Pow(a, 2)) / (2 * c * b))}");
@@ -106,12 +112,13 @@ namespace Lab2 {
         static void Main(string[] args) {
             string language = Console.ReadLine();
 
-            Console.WriteLine($"Month: {ShowMonth(language)}");
+            Console.WriteLine("Month: ");
+            ShowMonth(language);
 
             string strForSymbolChange = Console.ReadLine();
 
             Console.WriteLine($"String: {strForSymbolChange}");
-            Console.WriteLine($"NewString: {ChangeSymbols(strForSymbolChange)}");
+            Console.WriteLine($"NewString: {ShakeSymbols(strForSymbolChange)}");
 
             string strForReverseWords = Console.ReadLine();
 
