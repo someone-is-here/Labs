@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace Lab3 {
@@ -22,9 +22,7 @@ namespace Lab3 {
             _country = null;
             _peopleNum++;
         }
-        public Person(int age, bool sex, bool marriage, string homeAddress, string name, string surname, string country) {
-            Random rand = new Random();
-            _age = age;
+        public Person(bool sex, bool marriage, string homeAddress, string name, string surname, string country, DateTime dateOfBirth) {
             _sex = sex;
             _marriage = marriage;
             _homeAddress = homeAddress;
@@ -32,13 +30,11 @@ namespace Lab3 {
             _surname = surname;
             _country = country;
             _peopleNum++;
-            _dateOfBirth = DateTime.Now;
-            _dateOfBirth = _dateOfBirth.AddYears(-_age);
-            _dateOfBirth = _dateOfBirth.AddMonths(rand.Next(12));
-            _dateOfBirth = _dateOfBirth.AddDays(rand.Next(30));
+            _dateOfBirth = dateOfBirth;
+            TimeSpan newObj = DateTime.Now - _dateOfBirth;
+            _age = (int)((double)newObj.Days / 365.25);
         }
         public Person(int age, bool sex, bool marriage, string homeAddress, string name, string surname, string country, DateTime dateOfBirth) {
-            Random rand = new Random();
             _age = age;
             _sex = sex;
             _marriage = marriage;
@@ -47,7 +43,6 @@ namespace Lab3 {
             _surname = surname;
             _country = country;
             _peopleNum++;
-            _dateOfBirth = DateTime.Now;
             _dateOfBirth = dateOfBirth;
         }
         public int Age {
@@ -65,7 +60,7 @@ namespace Lab3 {
                 return _dateOfBirth;
             }
             set {
-                value = _dateOfBirth;
+                _dateOfBirth = value;
             }
         
         }
@@ -142,16 +137,27 @@ namespace Lab3 {
             int randomValue = rand.Next(namesForGeneration.Length);
             _name = namesForGeneration[randomValue];
             _sex = (randomValue < 5) ? true : false;
-            string[] surnamesForGeneration = { "Wilson","Smith","Brown","Thomson","Stewart","Anderson","Taylor","Ross" };
+            string[] surnamesForGeneration = { "Wilson", "Smith", "Brown", "Thomson", "Stewart", "Anderson", "Taylor", "Ross" };
             _surname = surnamesForGeneration[rand.Next(surnamesForGeneration.Length)];
             string[] countriesForGeneration = { "Belarus", "Russia", "USA", "UK", "Italy", "Spain", "Irland", "Zambia", "Qatar", "Peru", "Poland", "Philippines" };
             _country = countriesForGeneration[rand.Next(countriesForGeneration.Length)];
-            _marriage = (rand.Next(2) == 1) ? true : false;
+            if (_age >= 16) {
+                _marriage = (rand.Next(2) == 1) ? true : false;
+            } else {
+                _marriage = false;
+            }
             StringBuilder strBuilder = new StringBuilder(rand.Next(5, 10));
             for (int i = 0; i < strBuilder.Capacity; i++) {
-                strBuilder.Append((char)rand.Next('a','z' + 1));
+                if (i == 0) {
+                    strBuilder.Append((char)rand.Next('A', 'Z' + 1));
+                } else {
+                    strBuilder.Append((char)rand.Next('a', 'z' + 1));
+                }
             }
             strBuilder = strBuilder.Insert(0, "st.");
+            strBuilder.Append(" " + Convert.ToString(rand.Next(1, 274)));
+            strBuilder.Append(" - ");
+            strBuilder.Append(Convert.ToString(rand.Next(1, 100)));
             _homeAddress = strBuilder.ToString();
             _dateOfBirth = DateTime.Now;
             _dateOfBirth = _dateOfBirth.AddYears(-_age);
@@ -200,10 +206,10 @@ namespace Lab3 {
                 people[i].ShowInfo();
             }
 
-            Person person2 = new Person(18, false, false, "st.Adremak 6 - 89", "Pavel", "Grentrey", "Greece");
+            Person person2 = new Person(false, false, "st.Adremak 6 - 89", "Pavel", "Grentrey", "Greece", DateTime.Parse("19.03.2018"));
             Console.WriteLine(person2);
 
-            Person person3 = new Person(20, true, false, "st.Kolj", "Ariana", "Themy", "France", DateTime.Parse("13.07.2000"));
+            Person person3 = new Person(20, true, false, "st.Kolj 13 - 87", "Ariana", "Themy", "France", DateTime.Parse("13.07.2000"));
             Console.WriteLine(person3);
 
             Person.GetPeopleNum();
