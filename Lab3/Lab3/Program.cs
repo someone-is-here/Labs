@@ -3,148 +3,148 @@ using System.Text;
 
 namespace Lab3 {
     class Person {
-        private static int _peopleNum = 0;
-        private int _age;
-        private DateTime _dateOfBirth;
-        private bool _sex;
-        private bool _marriage;
-        private string _homeAddress;
-        private string _name;
-        private string _surname;
-        private string _country;
+        private static int peopleNum = 0;
+        private int age;
+        private DateTime dateOfBirth;
+        private bool sex;
+        private bool marriage;
+        private string homeAddress;
+        private string name;
+        private string surname;
+        private string country;
         public Person() {
-            _age = 0;
-            _sex = false;
-            _marriage = false;
-            _homeAddress = null;
-            _name = null;
-            _surname = null;
-            _country = null;
-            _peopleNum++;
+            age = 0;
+            sex = false;
+            marriage = false;
+            homeAddress = null;
+            name = null;
+            surname = null;
+            country = null;
+            peopleNum++;
         }
         public Person(bool sex, bool marriage, string homeAddress, string name, string surname, string country, DateTime dateOfBirth) {
-            _sex = sex;
-            _marriage = marriage;
-            _homeAddress = homeAddress;
-            _name = name;
-            _surname = surname;
-            _country = country;
-            _peopleNum++;
-            _dateOfBirth = dateOfBirth;
-            TimeSpan newObj = DateTime.Now - _dateOfBirth;
-            _age = (int)((double)newObj.Days / 365.25);
+            this.sex = sex;
+            this.marriage = marriage;
+            this.homeAddress = homeAddress;
+            this.name = name;
+            this.surname = surname;
+            this.country = country;
+            peopleNum++;
+            this.dateOfBirth = dateOfBirth;
+            TimeSpan newObj = DateTime.Now - this.dateOfBirth;
+            age = (int)((double)newObj.Days / 365.25);
         }
         public Person(int age, bool sex, bool marriage, string homeAddress, string name, string surname, string country, DateTime dateOfBirth) {
-            _age = age;
-            _sex = sex;
-            _marriage = marriage;
-            _homeAddress = homeAddress;
-            _name = name;
-            _surname = surname;
-            _country = country;
-            _peopleNum++;
-            _dateOfBirth = dateOfBirth;
+            this.age = age;
+            this.sex = sex;
+            this.marriage = marriage;
+            this.homeAddress = homeAddress;
+            this.name = name;
+            this.surname = surname;
+            this.country = country;
+            peopleNum++;
+            this.dateOfBirth = dateOfBirth;
         }
         public int Age {
             get {
-                return _age;
+                return age;
             }
             set {
                 if (value > 0) {
-                    _age = value;
+                    age = value;
                 }
             }
         }
         public DateTime DateOfBirth {
             get {
-                return _dateOfBirth;
+                return dateOfBirth;
             }
             set {
-                _dateOfBirth = value;
+                dateOfBirth = value;
             }
-        
+
         }
         public bool Sex {
             get {
-                return _sex;
+                return sex;
             }
             set {
-                _sex = value;
+                sex = value;
             }
         }
         public bool Marriage {
             get {
-                return _marriage;
+                return marriage;
             }
             set {
-                _marriage = value;
+                marriage = value;
             }
         }
         public string HomeAddress {
             get {
-                return _homeAddress;
+                return homeAddress;
             }
             set {
                 if (value.Length > 0) {
-                    _homeAddress = value;
+                    homeAddress = value;
                 }
             }
         }
         public string Name {
             get {
-                return _name;
+                return name;
             }
             set {
                 if (value.Length > 0) {
-                    _name = value;
+                    name = value;
                 }
             }
         }
         public string Surname {
             get {
-                return _surname;
+                return surname;
             }
             set {
                 if (value.Length > 0) {
-                    _surname = value;
+                    surname = value;
                 }
             }
         }
         public string Country {
             get {
-                return _country;
+                return country;
             }
             set {
                 if (value.Length > 0) {
-                    _country = value;
+                    country = value;
                 }
             }
         }
         public static int PeopleNum {
             get {
-                return _peopleNum;
+                return peopleNum;
             }
             set {
                 if (value > 0) {
-                    _peopleNum = value;
+                    peopleNum = value;
                 }
             }
         }
         public void GenFields() {
             Random rand = new Random();
-            _age = rand.Next(1, 100);
-            string[] namesForGeneration = { "Alexandra", "Tanusha", "Veronika", "Anna", "Angelina", "Nial","Alexey","Alexandr","Nikita","Daniil" };
+            age = rand.Next(1, 100);
+            string[] namesForGeneration = { "Alexandra", "Tanusha", "Veronika", "Anna", "Angelina", "Nial", "Alexey", "Alexandr", "Nikita", "Daniil" };
             int randomValue = rand.Next(namesForGeneration.Length);
-            _name = namesForGeneration[randomValue];
-            _sex = (randomValue < 5) ? true : false;
+            name = namesForGeneration[randomValue];
+            sex = (randomValue < 5) ? true : false;
             string[] surnamesForGeneration = { "Wilson", "Smith", "Brown", "Thomson", "Stewart", "Anderson", "Taylor", "Ross" };
-            _surname = surnamesForGeneration[rand.Next(surnamesForGeneration.Length)];
+            surname = surnamesForGeneration[rand.Next(surnamesForGeneration.Length)];
             string[] countriesForGeneration = { "Belarus", "Russia", "USA", "UK", "Italy", "Spain", "Irland", "Zambia", "Qatar", "Peru", "Poland", "Philippines" };
-            _country = countriesForGeneration[rand.Next(countriesForGeneration.Length)];
-            if (_age >= 16) {
-                _marriage = (rand.Next(2) == 1) ? true : false;
+            country = countriesForGeneration[rand.Next(countriesForGeneration.Length)];
+            if (age >= 16) {
+                marriage = (rand.Next(2) == 1) ? true : false;
             } else {
-                _marriage = false;
+                marriage = false;
             }
             StringBuilder strBuilder = new StringBuilder(rand.Next(5, 10));
             for (int i = 0; i < strBuilder.Capacity; i++) {
@@ -158,32 +158,32 @@ namespace Lab3 {
             strBuilder.Append(" " + Convert.ToString(rand.Next(1, 274)));
             strBuilder.Append(" - ");
             strBuilder.Append(Convert.ToString(rand.Next(1, 100)));
-            _homeAddress = strBuilder.ToString();
-            _dateOfBirth = DateTime.Now;
-            _dateOfBirth = _dateOfBirth.AddYears(-_age);
-            _dateOfBirth = _dateOfBirth.AddMonths(rand.Next(12));
-            _dateOfBirth = _dateOfBirth.AddDays(rand.Next(30));
+            homeAddress = strBuilder.ToString();
+            dateOfBirth = DateTime.Now;
+            dateOfBirth = dateOfBirth.AddYears(-age);
+            dateOfBirth = dateOfBirth.AddMonths(rand.Next(12));
+            dateOfBirth = dateOfBirth.AddDays(rand.Next(30));
         }
         public void ShowInfo() {
-            Console.WriteLine($"{_name} {_surname} from {_country}");
-            Console.WriteLine($"Age: {_age}");
-            Console.WriteLine($"HomeAddress: {_homeAddress}");
-            Console.WriteLine($"Sex: {((_sex == true) ? "women" : "men")}");
-            Console.WriteLine($"Status: {((_marriage == true) ? "married" : "single")}");
-            Console.WriteLine($"Date of birth: {_dateOfBirth.ToString("dd.MM.yyyy")}");
+            Console.WriteLine($"{name} {surname} from {country}");
+            Console.WriteLine($"Age: {age}");
+            Console.WriteLine($"HomeAddress: {homeAddress}");
+            Console.WriteLine($"Sex: {((sex == true) ? "women" : "men")}");
+            Console.WriteLine($"Status: {((marriage == true) ? "married" : "single")}");
+            Console.WriteLine($"Date of birth: {dateOfBirth.ToString("dd.MM.yyyy")}");
         }
         public static void GetPeopleNum() {
-            Console.WriteLine($"Number of people: {_peopleNum}");
+            Console.WriteLine($"Number of people: {peopleNum}");
         }
         public override string ToString() {
-            string gender = (_sex == true) ? "women" : "men";
-            string isMarried = (_marriage == true) ? "married" : "single";
-            return $"{_name} {_surname} from {_country} \nAge: {_age} \nHome address: {_homeAddress} \nSex: {gender} \nStatus: {isMarried} \nDate of birth: {_dateOfBirth.ToString("dd.MM.yyyy")}";
+            string gender = (sex == true) ? "women" : "men";
+            string isMarried = (marriage == true) ? "married" : "single";
+            return $"{name} {surname} from {country} \nAge: {age} \nHome address: {homeAddress} \nSex: {gender} \nStatus: {isMarried} \nDate of birth: {dateOfBirth.ToString("dd.MM.yyyy")}";
         }
     }
 
     class Program {
-        static void Main(string[] args) { 
+        static void Main(string[] args) {
             Person.GetPeopleNum();
 
             Person person1 = new Person();
