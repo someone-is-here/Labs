@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace Lab3 {
@@ -18,16 +18,19 @@ namespace Lab3 {
         }
         public Person this[int index] {
             get {
-                if (index < 0 && index >= PeopleNum) {
-                    throw new Exception("Wrong index");
+                try {
+                    return people[index];
+                } catch (IndexOutOfRangeException) {
+                    Console.WriteLine("Wrong index");
+                    return null;
                 }
-                return people[index];
             }
             set {
-                if (index < 0 && index >= PeopleNum) {
-                    throw new Exception("No such person was found");
+                try {
+                    people[index] = value;
+                } catch (IndexOutOfRangeException){
+                    Console.WriteLine("Wrong index");
                 }
-                people[index] = value;
             }
         }
         public Person findYoungest() {
