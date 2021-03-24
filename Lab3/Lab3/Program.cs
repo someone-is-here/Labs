@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 
 namespace Lab3 {
@@ -39,6 +39,12 @@ namespace Lab3 {
             Person someone = new Person();
             someone = obj.findYoungest();
             Console.WriteLine(someone);
+            Console.WriteLine();
+
+            Person iXPerson = obj[13];
+            obj[-1] = someone;
+            obj[0] = someone;
+            Console.WriteLine(obj);
         }
     }
 }
