@@ -76,7 +76,6 @@ namespace Lab3 {
             int count = 0;
             while (count++ < 10) {
                 hp.Attack();
-     
             }
             hp.ShowStatus();
 
