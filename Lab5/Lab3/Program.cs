@@ -54,9 +54,12 @@ namespace Lab3 {
 
             Console.WriteLine();
             Console.WriteLine();
+            
+            Sportsman volleyBallPlayer = new VolleyballPlayer(true, false, "st.Nemanskaya 6-13", "Tanusha", "Shurko", "Belarus", new DateTime(2002, 07, 28), Sportsman.TypesOfSports.Volleyball, 0, 0, false, false, VolleyballPlayer.Teams.Minchanka, VolleyballPlayer.Position.Libero, "Max Nevero", 10);
+            Console.WriteLine(volleyBallPlayer);
 
-            VolleyballPlayer volleyBallPlayer = new VolleyballPlayer(true,false,"st.Nemanskaya 6-13","Tanusha","Shurko","Belarus",new DateTime(2002,07,28),Sportsman.TypesOfSports.Volleyball,0,0,false,false,VolleyballPlayer.Teams.Minchanka,VolleyballPlayer.Position.Libero,"Max Nevero", 10);
-            Console.WriteLine(volleyBallPlayer); 
+            volleyBallPlayer.ShowStatus();
+            volleyBallPlayer.Attack();
 
             Console.WriteLine();
             Console.WriteLine();
